@@ -18,12 +18,24 @@ function insertPosts(data) {
         <h2>${data[i].fields.title}</h2>
         <span>${data[i].fields.author}</span>
         <p>${data[i].fields.content}</p>
-        <button id="${data[i].pk}">Delete</button>
+        <button id="${data[i].pk}" class="delete-button">Delete</button>
         `;
         postsContainer.append(post);
     }
 }
 
-document.addEventListener("click", function(){
-    
-})
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-button')) {
+        let primaryKey = e.target.id;
+        fetch(API, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: primaryKey})
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.error(err));
+    }
+});
