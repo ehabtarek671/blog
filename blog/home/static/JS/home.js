@@ -27,32 +27,19 @@ function insertPosts(data) {
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete-button')) {
         let primaryKey = e.target.id;
-<<<<<<< HEAD
         fetch(DELETEAPI, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFTOKEN': document.cookie.split('; ').at(3).split('=')[1]
-=======
-        fetch(API, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
->>>>>>> 70e6b47aa0d46eb5717f5decea141735540ea0bf
             },
             body: JSON.stringify({id: primaryKey})
         })
         .then(response => response.json())
-<<<<<<< HEAD
         .then((data) => {
             console.log(data)
             e.target.parentElement.remove();
         })
         .catch(err => console.error(err));
     }
-=======
-        .then(data => console.log(data))
-        .catch(err => console.error(err));
-    }
->>>>>>> 70e6b47aa0d46eb5717f5decea141735540ea0bf
 });
