@@ -111,15 +111,18 @@ header ul li a:hover {
     color: #000;
 }
 
-.post button{
+.post button {
     padding: 15px 30px;
     background-color: #F32013;
+    box-shadow: 0 0 10px #F32013;
     color: white;
     font-size: 2rem;
     margin-top: 30px;
-    font-family: 'dela gothic one';
+    font-family: 'Montserrat';
+    font-weight: 500;
     border: none;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .post h2 {
