@@ -1,6 +1,6 @@
 const postsContainer = document.querySelector('.posts-container');
 const API = '/api/blogs/';
-
+const DELETEAPI = '/newblog/create/'
 const fetchAPI = fetch(API)
 .then(response => response.json())
 .then((data) => {
@@ -18,12 +18,28 @@ function insertPosts(data) {
         <h2>${data[i].fields.title}</h2>
         <span>${data[i].fields.author}</span>
         <p>${data[i].fields.content}</p>
-        <button id="${data[i].pk}">Delete</button>
+        <button id="${data[i].pk}" class="delete-button">Delete</button>
         `;
         postsContainer.append(post);
     }
 }
 
-document.addEventListener("click", function(){
-    
-})
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-button')) {
+        let primaryKey = e.target.id;
+        fetch(DELETEAPI, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFTOKEN': document.cookie.split('; ').at(3).split('=')[1]
+            },
+            body: JSON.stringify({id: primaryKey})
+        })
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data)
+            e.target.parentElement.remove();
+        })
+        .catch(err => console.error(err));
+    }
+});
