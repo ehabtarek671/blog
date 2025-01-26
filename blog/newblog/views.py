@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
+import uuid
 from .models import Post
 import json
 def create_post(req):
@@ -7,11 +8,11 @@ def create_post(req):
         title = req.POST.get('title')
         content = req.POST.get('content')
         author = req.POST.get('author')
-        post = Post(title=title,content=content,author=author)
+        objects_number = Post.objects.all().count()
+        post = Post(title=title,content=content,author=author,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author))
         post.save()
         return redirect('/')
-    elif req.method == 'DELETE':
-        
+    elif req.method == 'DELETE':       
         response = json.loads(req.body.decode('utf-8'))
         object_response = response.get('id')
         post_object = Post
