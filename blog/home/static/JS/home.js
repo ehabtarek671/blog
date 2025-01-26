@@ -37,7 +37,7 @@ document.addEventListener('click', (e) => {
         })
         .then(response => response.json())
         .then((data) => {
-            console.log(data)
+            console.log(data);
             e.target.parentElement.remove();
         })
         .catch(err => console.error(err));
