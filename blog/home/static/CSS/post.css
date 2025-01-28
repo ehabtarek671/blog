@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
     margin: 0;
@@ -77,84 +78,98 @@ header ul li a:hover {
     height: 100vh;
 }
 
-form {
+.wrapper .post {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #f0efef;
-    height: 600px;
-    width: 600px;
-    border-radius: 30px;
+    background-color: #e4e3e3b2;
+    max-width: 60%;
+    padding: 1.5rem;
+    border-radius: 20px;
+    min-width: 600px;
 }
 
-form h2 {
+.post h2 {
     font-family: 'Rakkas';
-    font-size: 3rem;
-    margin-bottom: 3rem;
+    font-size: 2.5rem;
 }
 
-.input-field {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
+.post .author {
+    font-family: 'Almendra';
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-decoration: underline;
+}
+
+.post p {
+    font-family: 'Instrument Sans';
+    font-size: 1.3rem;
+    color: #383838;
     margin-bottom: 1.5rem;
 }
 
-.input-field input {
-    padding: 20px;
-    text-align: center;
-    width: 90%;
-    outline: none;
-    border: 2px solid #000;
-    border-radius: 100px;
-    font-family: 'Montserrat';
-    font-size: 1.3rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+.preferences {
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+    align-self: flex-start;
+    width: 100%;
 }
 
-.input-field span {
-    position: absolute;
-    left: 50px;
-    font-size: 1.4rem;
-    font-family: 'Montserrat';
-    opacity: 0.8;
-    pointer-events: none;
-    transition: 400ms;
-}
-
-.input-field input:focus ~ span,
-.input-field input:user-valid ~ span {
-    transform: translateX(20px);
-    opacity: 0;
-    visibility: hidden;
-}
-
-form textarea {
-    resize: none;
-    width: 89%;
-    border-radius: 20px;
-    border: 2px solid #000;
-    outline: none;
-    text-align: center;
-    font-family: 'Montserrat';
-    font-size: 1.2rem;
-    padding: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-form button {
-    padding: 15px 30px;
-    border: none;
-    background-color: #000;
-    font-weight: 500;
-    border-radius: 100px;
-    font-size: 2rem;
-    font-family: 'Montserrat';
-    color: #fff;
-    margin-top: 1.5rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+.preferences span {
+    position: relative;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #000;
     cursor: pointer;
+    font-size: 30px;
+    transition: 250ms;
+}
+
+.active {
+    background-color: #000;
+    font-variation-settings:
+    'FILL' 1;
+    color: #fff;
+}
+
+.preferences span:nth-child(3) {
+    position: absolute;
+    right: 0;
+}
+
+.preferences span::before {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Instrument Sans';
+    font-weight: 500;
+    font-size: 1.2rem;
+    background-color: #000;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.preferences #like::before {
+    content: 'Like';
+}
+
+.preferences #dislike::before {
+    content: 'Dislike';
+}
+
+.preferences #read::before {
+    content: 'Mark As Read';
+}
+
+.preferences span:hover::before {
+    bottom: -50px;
+    opacity: 1;
+    transition: 300ms;
 }

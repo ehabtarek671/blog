@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
     margin: 0;
@@ -129,26 +130,27 @@ header ul li a:hover {
 .title-link {
     text-decoration: none;
     font-family: 'Rakkas';
-    font-size: 2.3rem;
+    font-size: 2.2rem;
     justify-self: flex-start;
     line-height: 1;
     text-align: center;
     margin-top: 1.5rem;
-    max-width: 98%;
+    max-width: 96%;
     color: black;
     transition: all 150ms ease-in-out;
+    margin-bottom: 0.5rem;
 }
 
 .title-link:hover{
- background-color: #98989891;
- border-radius: 8px;
- padding-left: 10px;
- padding-right: 10px;
+    background-color: #cac9c991;
+    border-radius: 8px;
+    padding: 5px 15px;
 }
 
 .post span {
-    font-family: 'Instrument Sans';
-    font-size: 0.9rem;
+    font-family: 'Almendra';
+    font-size: 1.4rem;
+    text-decoration: underline;
 }
 
 .post p {
