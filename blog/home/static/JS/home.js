@@ -31,7 +31,7 @@ document.addEventListener('click', (e) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFTOKEN': document.cookie.split('; ').at(3).split('=')[1]
+                'X-CSRF-Token': `${document.cookie.split('=')[1]}`,
             },
             body: JSON.stringify({id: primaryKey})
         })
