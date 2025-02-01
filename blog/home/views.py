@@ -7,7 +7,7 @@ def index(req):
 def create(req):
     return render(req, 'create.html')
 
-def post(req, uuid):
-    object_post = get_object_or_404(Post, uuid=uuid)
-    comments = Comment.objects.filter(posts=object_post)
-    return render(req, 'post.html', {'post': object_post, 'comments': comments})
+def post__(req, uuid):
+    posts = get_object_or_404(Post, uuid=uuid)
+    comments = Comment.objects.filter(post=posts)
+    return render(req, 'post.html', {'post': posts, 'comments': comments})

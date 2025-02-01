@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import JsonResponse
 import uuid
 from .models import Post
@@ -12,10 +12,11 @@ def create_post(req):
         post = Post(title=title,content=content,author=author,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author))
         post.save()
         return redirect('/')
-    elif req.method == 'DELETE':       
+    elif req.method == 'PUT':       
         response = json.loads(req.body.decode('utf-8'))
         object_response = response.get('id')
-        post_object = Post
-        post_object.objects.all().filter(pk = object_response).delete()
+        post_object = get_object_or_404(Post,uuid=object_response)
+        post_object.active = False
+        post_object.save()
         message_response = {'message':'Accepted'}
         return JsonResponse(message_response)

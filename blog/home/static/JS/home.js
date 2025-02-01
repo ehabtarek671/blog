@@ -5,34 +5,45 @@ const DELETEAPI = '/newblog/create/';
 const fetchAPI = fetch(API)
 .then(response => response.json())
 .then((data) => {
-    insertPosts(data);
+    insertPosts(data)
 })
 .catch(err => console.error(err));
 
-function insertPosts(data) {
-    for (let i = 0; i < data.length; i++) {
-        let post = document.createElement('div');
-        post.classList.add('post');
+// Function to get the CSRF token from cookies
+function getCSRFToken() {
+    const csrfToken = document.cookie.split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+    
+    return csrfToken;
+}
 
-        post.innerHTML =
+
+function insertPosts(data) {
+    for (let i = 0; i < data.posts.length; i++) {
+        let postl = document.createElement('div');
+        postl.classList.add('post');
+
+        postl.innerHTML =
         `
-        <a href="/p/${data[i].pk}" class="title-link"><h2>${data[i].fields.title}</h2></a>
-        <span>${data[i].fields.author}</span>
-        <p>${data[i].fields.content}</p>
-        <button id="${data[i].pk}" class="delete-button">Delete</button>
+        <a href="/p/${data.posts[i].url}" class="title-link"><h2>${data.posts[i].title}</h2></a>
+        <span>${data.posts[i].author.name}</span>
+        <p>${data.posts[i].content}</p>
+        <button id="${data.posts[i].url}" class="delete-button">Delete</button>
         `;
-        postsContainer.append(post);
+        postsContainer.append(postl);
     }
 }
 
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete-button')) {
+        const csrfToken  = getCSRFToken()
         let primaryKey = e.target.id;
         fetch(DELETEAPI, {
-            method: 'DELETE',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-Token': `${document.cookie.split('=')[1]}`
+                'X-CSRFToken': `${csrfToken}`
             },
             body: JSON.stringify({id: primaryKey})
         })
@@ -41,6 +52,6 @@ document.addEventListener('click', (e) => {
             console.log(data);
             e.target.parentElement.remove();
         })
-        .catch(err => console.error(err));
+        .catch(err => err);
     }
 });

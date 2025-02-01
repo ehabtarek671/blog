@@ -4,5 +4,5 @@ from .views import *
 urlpatterns = [
     path('',index),
     path('create/',create),
-    path('p/<uuid>/',post)
+    path('p/<uuid>/',post__)
 ]
