@@ -11,3 +11,9 @@ def post__(req, uuid):
     posts = get_object_or_404(Post, uuid=uuid)
     comments = Comment.objects.filter(post=posts)
     return render(req, 'post.html', {'post': posts, 'comments': comments})
+
+def login(req):
+    return render(req,'login.html')
+
+def signup(req):
+    return render(req,'signup.html')

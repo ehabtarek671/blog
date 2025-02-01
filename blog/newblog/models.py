@@ -1,20 +1,7 @@
 from django.db import models
 import uuid
-import os
-
-def user_profile_image_path(instance, filename):
-    """Stores profile images in a folder named after the user's email."""
-    return f'profile_images/{instance.email}/{filename}'
-
-class Account(models.Model):
-    email = models.EmailField(unique=True, null=False, blank=False)
-    password = models.CharField(max_length=500, null=False, blank=False)
-    name = models.CharField(max_length=50, null=False, blank=False)
-    profile_image = models.ImageField(upload_to=user_profile_image_path, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
+from account.models import Account
+from func.saveimage import user_profile_image_path
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=5000)
