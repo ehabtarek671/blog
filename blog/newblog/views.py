@@ -10,7 +10,7 @@ def create_post(req):
         content = req.POST.get('content')
         author = Account.objects.filter(email = req.session['email']).first()
         objects_number = Post.objects.all().count()
-        post = Post(title=title,content=content,author=author,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author))
+        post = Post(title=title,content=content,author=author,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author.email))
         post.save()
         return redirect('/')
     elif req.method == 'PUT':       

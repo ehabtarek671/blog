@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import JsonResponse
-from newblog.models import Post,Account
+from newblog.models import Post
 
 def send_user(req):
     if 'email'  in req.session:

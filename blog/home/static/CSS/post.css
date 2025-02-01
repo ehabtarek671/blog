@@ -1,0 +1,175 @@
+@import url('../Icons/icons.css');
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 2rem;
+    background-color: #000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+header .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Dela Gothic One';
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+.logo span {
+    font-size: 4rem;
+}
+
+header ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: 'Instrument Sans';
+}
+
+header ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #000;
+    column-gap: 0.3rem;
+    padding: 10px 20px;
+    background-color: rgb(93, 6, 255);
+    color: #fff;
+    border-radius: 100px;
+    transition: 400ms ease-in-out;
+}
+
+header ul li a:hover {
+    color: rgb(93, 6, 255);
+    background-color: #fff;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.wrapper .post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #e4e3e3b2;
+    max-width: 60%;
+    padding: 1.5rem;
+    border-radius: 20px;
+    min-width: 600px;
+}
+
+.post h2 {
+    font-family: 'Rakkas';
+    font-size: 2.5rem;
+}
+
+.post .author {
+    font-family: 'Almendra';
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-decoration: underline;
+}
+
+.post p {
+    font-family: 'Instrument Sans';
+    font-size: 1.3rem;
+    color: #383838;
+    margin-bottom: 1.5rem;
+}
+
+.preferences {
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+    align-self: flex-start;
+    width: 100%;
+}
+
+.preferences span {
+    position: relative;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 30px;
+    transition: 250ms;
+}
+
+.active {
+    background-color: #000;
+    font-variation-settings:
+    'FILL' 1;
+    color: #fff;
+}
+
+.preferences span:nth-child(3) {
+    position: absolute;
+    right: 0;
+}
+
+.preferences span::before {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Instrument Sans';
+    font-weight: 500;
+    font-size: 1.2rem;
+    background-color: #000;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.preferences #like::before {
+    content: 'Like';
+}
+
+.preferences #dislike::before {
+    content: 'Dislike';
+}
+
+.preferences #read::before {
+    content: 'Mark As Read';
+}
+
+.preferences span:hover::before {
+    bottom: -50px;
+    opacity: 1;
+    transition: 300ms;
+}

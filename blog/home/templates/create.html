@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>E-BLOG - Create Post</title>
+        <link rel="stylesheet" href="{% static "CSS/create.css" %}">
+        <link rel="icon" href=" {% static 'Images/favicon.png' %} ">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <span class="material-symbols-outlined">app_badging</span>
+                <h1>E-BLOG</h1>
+            </div>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+            </ul>
+        </header>
+
+        <div class="wrapper">
+            <form action="/newblog/create/" method="post">
+                {% csrf_token %}
+                <h2>Create Post</h2>
+                <div class="input-field">
+                    <input type="text" name="title" maxlength="100" required>
+                    <span>Title</span>
+                </div>
+                <textarea cols="50" rows="3" maxlength="5000" placeholder="Write the content of your post..." name='content' required></textarea>
+                <button type="submit">Submit Post</button>
+            </form>
+        </div>
+
+    </body>
+</html>
