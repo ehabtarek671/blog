@@ -21,23 +21,23 @@ function getCSRFToken() {
 
 function insertPosts(data) {
     for (let i = 0; i < data.posts.length; i++) {
-        let postl = document.createElement('div');
-        postl.classList.add('post');
+        let post = document.createElement('div');
+        post.classList.add('post');
 
-        postl.innerHTML =
+        post.innerHTML =
         `
         <a href="/p/${data.posts[i].url}" class="title-link"><h2>${data.posts[i].title}</h2></a>
         <span>${data.posts[i].author.name}</span>
         <p>${data.posts[i].content}</p>
         <button id="${data.posts[i].url}" class="delete-button">Delete</button>
         `;
-        postsContainer.append(postl);
+        postsContainer.append(post);
     }
 }
 
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete-button')) {
-        const csrfToken  = getCSRFToken()
+        const csrfToken  = getCSRFToken();
         let primaryKey = e.target.id;
         fetch(DELETEAPI, {
             method: 'PUT',
@@ -49,9 +49,9 @@ document.addEventListener('click', (e) => {
         })
         .then(response => response.json())
         .then((data) => {
-            console.log(data);
+            console.log(`Delete post ${data.message}`);
             e.target.parentElement.remove();
         })
-        .catch(err => err);
+        .catch(err => console.error(err));
     }
 });
