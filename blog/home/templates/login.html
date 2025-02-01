@@ -1,11 +1,53 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Blog - Signin</title>
-</head>
-<body>
-    <form action=""></form>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>E-BLOG - Log In</title>
+        <link rel="stylesheet" href="{% static "CSS/signup.css" %}">
+        <link rel="icon" href="{% static "Images/favicon.png" %}">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <span class="material-symbols-outlined">app_badging</span>
+                <h1>E-BLOG</h1>
+            </div>
+            <ul>
+                <li>
+                    <a href="/">
+                        <span>Home</span>
+                    </a>
+                </li>
+            </ul>
+        </header>
+
+        <div class="wrapper">
+            <form action="/login" method="POST">
+                {% csrf_token %}
+                <h2>Welcome Back !</h2>
+
+                <div class="input-field">
+                    <input type="text" name="user_email" id="user-email" required>
+                    <div class="info">
+                        <span class="material-symbols-outlined">mail</span>
+                        <span>Email</span>
+                    </div>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" name="user_password" id="user-password" required>
+                    <div class="info">
+                        <span class="material-symbols-outlined">key</span>
+                        <span>Password</span>
+                    </div>
+                </div>
+
+                <button type="submit">Log In</button>
+                <span>Don't have an account? <a href="/signup">Create One</a></span>
+            </form>
+        </div>
+    </body>
 </html>

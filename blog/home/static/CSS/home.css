@@ -49,6 +49,8 @@ header ul {
     justify-content: flex-end;
     align-items: center;
     font-family: 'Instrument Sans';
+    column-gap: 1.5rem;
+    width: 50%;
 }
 
 header ul li a {
