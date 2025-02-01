@@ -20,3 +20,9 @@ def create_post(req):
         post_object.save()
         message_response = {'message':'Accepted'}
         return JsonResponse(message_response)
+
+def addlike(req,uuid):
+    if req.method == 'PUT':
+        likenum = get_object_or_404(Post,uuid=uuid)
+        likenum.likes+=1
+        likenum.save()

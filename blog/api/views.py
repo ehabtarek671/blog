@@ -3,15 +3,15 @@ from django.http import JsonResponse
 from newblog.models import Post,Account
 
 def send_user(req):
-    if 'email' in req.session:
-        user = get_object_or_404(Account,req.session['email'])
+    if 'email'  in req.session:
         data = {
-            'name':user.name,
-            'email':user.email,
-            'image':user.profile_image
+            'name':req.session['name'],
+            'email':req.session['email'],
+            'profileimage':req.session['profileimage']
         }
+        return JsonResponse(data,safe=False)
     else:
-        return JsonResponse({'message':'no User'},safe=False)
+        return JsonResponse({'message':'error'},safe=False)
 def send_posts(req):
     if req.method == 'GET':
         posts = Post.objects.all().filter(active = True)  # Get all posts

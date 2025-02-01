@@ -3,5 +3,5 @@ from .views import *
 
 urlpatterns = [
     path('blogs/',send_posts),
-    path('user/',send_user)
+    path('me/',send_user)
 ]
