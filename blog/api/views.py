@@ -22,9 +22,7 @@ def send_posts(req):
                     "title": post.title,
                     "content": post.content,
                     "url":post.uuid,
-                    "author": {
-                        "name": post.author.name
-                    },
+                    "author": post.author.name,
                     "likes": post.likes,
                     "views": post.views
                 }

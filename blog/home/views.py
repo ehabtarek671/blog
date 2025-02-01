@@ -32,5 +32,5 @@ def signup(req):
         name = req.POST.get('name')
         email = req.POST.get('email')
         password = req.POST.get('pwd')
-        account  = Account(name = name,email = email,password = password)
+        account  = Account(name = name,email = email,password = md5hash(password))
         account.save()
