@@ -28,11 +28,7 @@
             <form action="/signup/" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h2>Sign Up</h2>
-                
-                <div class="input-field">
-                    <input type="file" name="user_image" id="user-image" required>
-                </div>
-
+                  
                 <div class="input-field">
                     <input type="text" name="user_name" id="user-name" required>
                     <div class="info">
@@ -55,6 +51,10 @@
                         <span class="material-symbols-outlined">key</span>
                         <span>Password</span>
                     </div>
+                </div>
+                                
+                <div class="input-field" id="profile-image">
+                    <input type="file" name="user_image" id="user-image" required>
                 </div>
 
                 <button type="submit">Create Account</button>
