@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from django.http import JsonResponse
-from newblog.models import Post, Comment,Account
+from newblog.models import Post, Comment,Account,Like,Dislike
 import datetime
 from func.hash import md5hash
 def index(req):

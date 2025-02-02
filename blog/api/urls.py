@@ -5,5 +5,6 @@ urlpatterns = [
     path('blogs/',send_posts),
     path('me/',send_user),
     path('like/<uuid>',NewLike),
-    path('dislike/<uuid>',NewDisLike)
+    path('dislike/<uuid>',NewDisLike),
+    path('checklike/<uuid>',checklike)
 ]

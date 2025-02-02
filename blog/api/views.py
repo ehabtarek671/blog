@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import JsonResponse
-from newblog.models import Post,Account,Like,DisLike
-
+from newblog.models import Post,Account,Like,Dislike
+from django.db.models import Q
 def send_user(req):
     if 'email' and 'pwd'  in req.COOKIES:
         account = Account.objects.filter(email = req.COOKIES.get('email') , password = req.COOKIES.get('pwd')).first()
@@ -36,7 +36,10 @@ def NewLike(req,uuid):
         try:
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
-            like = Like(user = account,post = post)
+            checklike = Like.objects.filter(Q(user_post_unique=account.email+post.title))
+            if checklike.exists():
+                checklike.delete()
+            like = Like(user = account,post = post,user_post_unique=account.name+post.title)
             like.save()
             return JsonResponse({"message":"Accepted"})
         except:
@@ -56,7 +59,10 @@ def NewDisLike(req,uuid):
         try:
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
-            dislike = DisLike(user = account,post = post)
+            checklike = Dislike.objects.filter(Q(user_post_unique=account.email+post.title))
+            if checklike.exists():
+                checklike.delete()
+            dislike = Dislike(user = account,post = post,user_post_unique=account.name+post.title)
             dislike.save()
             return JsonResponse({"message":"Accepted"})
         except:
@@ -65,8 +71,28 @@ def NewDisLike(req,uuid):
         try:
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
-            dislike = DisLike.objects.filter(user = account,post = post).first()
+            dislike = Dislike.objects.filter(user = account,post = post).first()
             dislike.delete()
             return JsonResponse({"message":"Accepted"})
         except:
             return JsonResponse({'message':'Error'})
+        
+def checklike(req,uuid):
+    if req.method=='GET':
+        post = Post.objects.filter(uuid=uuid).first()
+        user = Account.objects.filter(email=req.COOKIES.get('email'),password = req.COOKIES.get('pwd')).first()
+        like = Like.objects.filter(user = user,post=post).first()
+        likebool = False
+        dislike = Dislike.objects.filter(user = user,post=post).first()
+        dislikebool = False
+        if like:
+            likebool=True
+        if dislike:
+            dislikebool=True
+        data = {
+            'like':likebool,
+            'dislike':dislikebool
+        }
+        return JsonResponse(data=data,safe=False)
+    else:
+        return JsonResponse({'message':'error'})
