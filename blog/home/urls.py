@@ -7,5 +7,6 @@ urlpatterns = [
     path('create/',create),
     path('p/<uuid>/',post__),
     path('login/',login),
-    path('signup/',signup)
+    path('signup/',signup),
+    path('test/',test)
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
