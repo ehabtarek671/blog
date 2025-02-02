@@ -38,4 +38,6 @@ def signup(req):
         Image = req.FILES.get('user_image')
         account  = Account(name = name,email = email,password = password , profile_image = Image)
         account.save()
-        return redirect('/login')
+        req.session['email'] = email
+        req.session['name'] = name
+        return redirect('/')

@@ -5,7 +5,7 @@ from func.saveimage import user_profile_image_path
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=5000)
-    author = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='posts')
+    author = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='posts',blank=True,null=True)
     uuid = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     likes = models.BigIntegerField(default=0)
     views = models.BigIntegerField(default=0)

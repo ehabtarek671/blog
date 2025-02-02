@@ -6,13 +6,18 @@ from  account.models import Account
 import json
 def create_post(req):
     if req.method == 'POST':
-        title = req.POST.get('title')
-        content = req.POST.get('content')
-        author = Account.objects.filter(email = req.session['email']).first()
-        objects_number = Post.objects.all().count()
-        post = Post(title=title,content=content,author=author,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author.email))
-        post.save()
-        return redirect('/')
+        if 'email' in req.session:
+            title = req.POST.get('title')
+            content = req.POST.get('content')
+            author_account = Account.objects.filter(email = req.session['email']).first()
+            if author_account != None:
+                objects_number = Post.objects.all().count()
+                Post.objects.create(title=title,content=content,author=author_account,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author_account.email))
+                return redirect('/')
+            else:
+                return redirect('/create')
+        else:
+            return redirect('/login')
     elif req.method == 'PUT':       
         response = json.loads(req.body.decode('utf-8'))
         object_response = response.get('id')
