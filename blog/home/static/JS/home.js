@@ -55,3 +55,48 @@ document.addEventListener('click', (e) => {
         .catch(err => console.error(err));
     }
 });
+
+/* ----------------------------------------------------------------------------- */
+
+const nav = document.querySelector('header ul');
+const userAPI = '/api/me/';
+
+const fetchUser = fetch(userAPI)
+.then(response => response.json())
+.then((data) => {
+    checkUser(data);
+})
+.catch(err => console.error(err));
+
+function checkUser(data) {
+    if (data.message === 'error') {
+        nav.innerHTML = /* Html */
+        `
+        <li>
+            <a href="/signup">
+                <span>Sign Up</span>
+            </a>
+        </li>
+        <li>
+            <a href="/login">
+                <span>Log In</span>
+            </a>
+        </li>
+        `;
+    } else if (data.name) {
+        nav.innerHTML = /* Html */
+        `
+        <li>
+            <a href="/create">
+                <span>Create</span>
+                <span class="material-symbols-outlined">add_circle</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="profile-image-holder">
+                <img src="${data.profileimage}" id="profile-image">
+            </a>
+        </li>
+        `;
+    }
+}

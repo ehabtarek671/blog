@@ -72,6 +72,25 @@ header ul li a:hover {
     background-color: #fff;
 }
 
+#profile-image-holder {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: none;
+}
+
+#profile-image {
+    display: block;
+    padding: 0;
+    background-color: #000;
+    border-radius: 50%;
+    min-width: 70px;
+    min-height: 70px;
+    width: 70px;
+    height: 70px;
+    aspect-ratio: 1 / 1;
+}
+
 .trending {
     position: relative;
     text-align: center;
