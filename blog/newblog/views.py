@@ -1,34 +1,37 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 import uuid
-from .models import Post
-from  account.models import Account
+from .models import Post, Account
 import json
+
 def create_post(req):
     if req.method == 'POST':
-        if 'email' in req.session:
-            title = req.POST.get('title')
-            content = req.POST.get('content')
-            author_account = Account.objects.filter(email = req.session['email']).first()
-            if author_account != None:
-                objects_number = Post.objects.all().count()
-                Post.objects.create(title=title,content=content,author=author_account,uuid = uuid.uuid5(namespace=uuid.NAMESPACE_URL,name = content+str(objects_number)+title+author_account.email))
+        email = req.COOKIES.get('email') 
+        if email:
+            author_account = Account.objects.filter(email=email).first()  
+            if author_account:  
+                title = req.POST.get('title')
+                content = req.POST.get('content')
+                
+                if not title or not content:  # Ensure title and content are not empty
+                    return JsonResponse({'error': 'Title and content are required'}, status=400)
+                
+                # Generate a unique UUID for each post
+                unique_uuid = uuid.uuid4()
+
+                # Create and save the Post object
+                new_post = Post(title=title, content=content, author=author_account, uuid=unique_uuid)
+                new_post.save()
                 return redirect('/')
             else:
-                return redirect('/create')
+                return redirect('/create')  # Account not found
         else:
-            return redirect('/login')
-    elif req.method == 'PUT':       
-        response = json.loads(req.body.decode('utf-8'))
-        object_response = response.get('id')
-        post_object = get_object_or_404(Post,uuid=object_response)
+            return redirect('/login')  # Email not found in session
+    elif req.method == 'PUT':
+        data = json.loads(req.body)
+        post_object = Post.objects.filter(pk = data['id']).first()
         post_object.active = False
         post_object.save()
-        message_response = {'message':'Accepted'}
-        return JsonResponse(message_response)
-
+        return JsonResponse({'message':'Accepted'})
 def addlike(req,uuid):
-    if req.method == 'PUT':
-        likenum = get_object_or_404(Post,uuid=uuid)
-        likenum.likes+=1
-        likenum.save()
+    pass

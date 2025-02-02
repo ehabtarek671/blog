@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import JsonResponse
-from newblog.models import Post
+from newblog.models import Post,Account
 
 def send_user(req):
-    if 'email'  in req.session:
+    if 'email' and 'pwd'  in req.COOKIES:
+        account = Account.objects.filter(email = req.COOKIES.get('email') , password = req.COOKIES.get('pwd')).first()
         data = {
-            'name':req.session['name'],
-            'email':req.session['email'],
-            'profileimage':req.session['profileimage']
+            'name':account.name,
+            'email':account.email,
+            'profileimage':account.profile_image.url
         }
         return JsonResponse(data,safe=False)
     else:
