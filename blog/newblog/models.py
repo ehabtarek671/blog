@@ -14,11 +14,20 @@ class Post(models.Model):
     content = models.TextField(max_length=5000)
     author = models.ForeignKey(Account, on_delete=models.CASCADE)
     uuid = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    likes = models.BigIntegerField(default=0)
     views = models.BigIntegerField(default=0)
     active = models.BooleanField(default=True,null=False)
     def __str__(self):
         return f'{self.title} by {self.author.name}'
+
+class Like(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class DisLike(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='dislikes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='dislikes')
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):
     author = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='user_comments')
