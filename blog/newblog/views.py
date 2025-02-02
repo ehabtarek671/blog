@@ -6,11 +6,10 @@ import json
 
 def create_post(req):
     if req.method == 'POST':
-        email = req.session.get('email')  # Use `.get()` to avoid KeyError
+        email = req.COOKIES.get('email') 
         if email:
-            print(email)  # Debug: print email from session
-            author_account = Account.objects.filter(email=email).first()  # Get account by email
-            if author_account:  # Ensure author_account is not None
+            author_account = Account.objects.filter(email=email).first()  
+            if author_account:  
                 title = req.POST.get('title')
                 content = req.POST.get('content')
                 
