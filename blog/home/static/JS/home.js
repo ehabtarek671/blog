@@ -49,7 +49,7 @@ document.addEventListener('click', (e) => {
         })
         .then(response => response.json())
         .then((data) => {
-            console.log(`Delete post ${data.message}`);
+            console.log(data.message);
             e.target.parentElement.remove();
         })
         .catch(err => console.error(err));

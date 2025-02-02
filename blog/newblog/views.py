@@ -28,7 +28,11 @@ def create_post(req):
                 return redirect('/create')  # Account not found
         else:
             return redirect('/login')  # Email not found in session
-
-
+    elif req.method == 'PUT':
+        data = json.loads(req.body)
+        post_object = Post.objects.filter(pk = data['id']).first()
+        post_object.active = False
+        post_object.save()
+        return JsonResponse({'message':'Accepted'})
 def addlike(req,uuid):
     pass
