@@ -5,8 +5,6 @@ from func.hash import md5hash
 def index(req):
     return render(req, 'index.html')
 
-def test(req):
-    return render(req,'test.html')
 
 def create(req):
     return render(req, 'create.html')
