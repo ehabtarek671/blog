@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from newblog.models import Post, Comment
-from account.models import Account
+from newblog.models import Post, Comment,Account
 from func.hash import md5hash
 def index(req):
     return render(req, 'index.html')
@@ -19,7 +18,7 @@ def login(req):
         return render(req,'login.html')
     elif req.method == 'POST':
             email = req.POST.get('user_email')
-            password = req.POST.get('user_password')
+            password = md5hash(req.POST.get('user_password'))
             account = Account.objects.filter(email = email, password=password).first()
             if account is None:
                 return redirect('/login')
@@ -35,10 +34,8 @@ def signup(req):
     elif req.method == 'POST':
         name = req.POST.get('user_name')
         email = req.POST.get('user_email')
-        password = req.POST.get('user_password')
+        password = md5hash(req.POST.get('user_password'))
         Image = req.FILES.get('user_image')
         account  = Account(name = name,email = email,password = password , profile_image = Image)
         account.save()
-        req.session['email'] = email
-        req.session['name'] = name
-        return redirect('/')
+        return redirect('/login')

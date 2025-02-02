@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'newblog',
     'home',
     'api',
-    'account'
 ]
 
 MIDDLEWARE = [
