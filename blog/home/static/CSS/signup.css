@@ -70,9 +70,11 @@ header ul li a:hover {
 }
 
 .wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 500px);
     justify-content: center;
     align-items: center;
+    gap: 1.5rem;
     height: 100vh;
     width: 100%;
 }
@@ -166,10 +168,68 @@ form button:hover {
     color: #000;
 }
 
+label:has(input[type="file"]) {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-size: 1.2rem;
+}
+
+label:has(input[type="file"])::before {
+    content: 'For best profile image view. Upload an image with an aspect ratio of 1 : 1';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200%;
+    pointer-events: none;
+    opacity: 0;
+    transition: 300ms ease-in-out;
+    text-align: center;
+}
+
+label:has(input[type="file"]):hover::before {
+    top: -80px;
+    opacity: 1;
+}
+
+label:has(input[type="file"]) div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.25rem;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    padding: 7px 14px;
+    background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+label:has(input[type="file"]) input {
+    opacity: 0;
+    height: 42px;
+    width: 207px;
+}
+
 form span {
     font-family: 'Montserrat';
 
     a {
         text-decoration: underline;
     }
+}
+
+canvas {
+    display: none;
+    border-radius: 30px;
 }
