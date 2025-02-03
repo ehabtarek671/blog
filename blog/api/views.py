@@ -49,6 +49,8 @@ def NewLike(req):
             return JsonResponse({'message':'Error'})
     elif req.method == 'DELETE':
         try:
+            data = json.loads(req.body)
+            uuid = data.get('uuid')
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
             like = Like.objects.filter(user = account,post = post).first()
@@ -74,6 +76,8 @@ def NewDisLike(req):
             return JsonResponse({'message':'Error'})
     elif req.method == 'DELETE':
         try:
+            data = json.loads(req.body)
+            uuid = data.get('uuid')
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
             dislike = Dislike.objects.filter(user = account,post = post).first()
