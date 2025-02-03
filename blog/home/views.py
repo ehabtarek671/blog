@@ -10,10 +10,19 @@ def create(req):
     return render(req,'create.html')
 
 def post__(req, uuid):
-    posts = get_object_or_404(Post, uuid=uuid)
-    comments = Comment.objects.filter(post=posts)
-    return render(req, 'post.html', {'post': posts, 'comments': comments,'uuid':uuid})
-
+    if req.method=='GET':
+        posts = get_object_or_404(Post, uuid=uuid)
+        comments = Comment.objects.filter(post=posts)
+        account  = Account.objects.filter(email = req.COOKIES.get('email'), password = req.COOKIES.get('pwd')).first()
+        return render(req, 'post.html', {'post': posts, 'comments': comments,'uuid':uuid})
+    elif req.method=='PUT':
+        data = json.loads(req.body)
+        postid = data.get('uuid')
+        user = Account.objects.filter(email = req.COOKIES.get('email'),password = req.COOKIES.get('pwd')).first()
+        if user:
+            posts = get_object_or_404(Post, uuid=postid)
+            posts.views+=1
+            posts.save()
 def login(req):
     if req.method == 'GET':
         return render(req,'login.html')

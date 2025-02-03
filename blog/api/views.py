@@ -45,8 +45,8 @@ def NewLike(req):
             like = Like(user = account,post = post,user_post_unique=account.name+post.title)
             like.save()
             return JsonResponse({"message":"Accepted"})
-        except:
-            return JsonResponse({'message':'Error'})
+        except Exception as e:
+            return JsonResponse({'message':'Error','error':e})
     elif req.method == 'DELETE':
         try:
             data = json.loads(req.body)
@@ -56,8 +56,8 @@ def NewLike(req):
             like = Like.objects.filter(user = account,post = post).first()
             like.delete()
             return JsonResponse({"message":"Accepted"})
-        except:
-            return JsonResponse({'message':'Error'})
+        except Exception as e:
+            return JsonResponse({'message':'Error','error':e})
 
 def NewDisLike(req):
     if req.method == 'POST':
@@ -72,8 +72,8 @@ def NewDisLike(req):
             dislike = Dislike(user = account,post = post,user_post_unique=account.name+post.title)
             dislike.save()
             return JsonResponse({"message":"Accepted"})
-        except:
-            return JsonResponse({'message':'Error'})
+        except Exception as e:
+            return JsonResponse({'message':'Error','error':e})
     elif req.method == 'DELETE':
         try:
             data = json.loads(req.body)
@@ -83,8 +83,8 @@ def NewDisLike(req):
             dislike = Dislike.objects.filter(user = account,post = post).first()
             dislike.delete()
             return JsonResponse({"message":"Accepted"})
-        except:
-            return JsonResponse({'message':'Error'})
+        except Exception as e:
+            return JsonResponse({'message':'Error','error':e})
         
 def checklike(req,uuid):
     if req.method=='GET':
