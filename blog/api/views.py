@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import JsonResponse
+import json
 from newblog.models import Post,Account,Like,Dislike
 from django.db.models import Q
 def send_user(req):
@@ -31,9 +32,11 @@ def send_posts(req):
 
         return JsonResponse(data, safe=False) 
 
-def NewLike(req,uuid):
+def NewLike(req):
     if req.method == 'POST':
         try:
+            data = json.loads(req.body)
+            uuid = data.get('uuid')
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
             checklike = Like.objects.filter(Q(user_post_unique=account.email+post.title))
@@ -54,9 +57,11 @@ def NewLike(req,uuid):
         except:
             return JsonResponse({'message':'Error'})
 
-def NewDisLike(req,uuid):
+def NewDisLike(req):
     if req.method == 'POST':
         try:
+            data = json.loads(req.body)
+            uuid = data.get('uuid')
             account = Account.objects.filter(email=req.COOKIES.get('email'),password=req.COOKIES.get('pwd')).first()
             post = Post.objects.filter(uuid = uuid).first()
             checklike = Dislike.objects.filter(Q(user_post_unique=account.email+post.title))
