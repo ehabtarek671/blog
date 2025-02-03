@@ -12,7 +12,7 @@ def create(req):
 def post__(req, uuid):
     posts = get_object_or_404(Post, uuid=uuid)
     comments = Comment.objects.filter(post=posts)
-    return render(req, 'post.html', {'post': posts, 'comments': comments})
+    return render(req, 'post.html', {'post': posts, 'comments': comments,'uuid':uuid})
 
 def login(req):
     if req.method == 'GET':
