@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.http import JsonResponse
 from newblog.models import Post, Comment,Account,Like,Dislike
 import datetime
+import json
 from func.hash import md5hash
 def index(req):
     return  render(req, 'index.html')
@@ -17,8 +18,9 @@ def login(req):
     if req.method == 'GET':
         return render(req,'login.html')
     elif req.method == 'POST':
-            email = req.POST.get('user_email')
-            password = md5hash(req.POST.get('user_password'))
+            formdata = json.loads(req.body)
+            email = formdata.get('email')
+            password = md5hash(formdata.get('pwd'))
             account = Account.objects.filter(email = email, password=password).first()
             if account is None:
                 return JsonResponse({'message':'Error'})
