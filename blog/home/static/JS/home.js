@@ -1,3 +1,13 @@
+const preloader = document.getElementById('preloader');
+window.addEventListener('load', () => {
+    preloader.style.opacity = '0';
+    preloader.addEventListener('transitionend', () => {
+        document.body.removeChild(preloader);
+    });
+});
+
+/* --------------------------------------------------------------- */
+
 const postsContainer = document.querySelector('.posts-container');
 const API = '/api/blogs/';
 const DELETEAPI = '/newblog/create/';

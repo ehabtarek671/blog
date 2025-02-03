@@ -18,6 +18,15 @@
     }
 }
 
+#preloader {
+    position: fixed;
+    inset: 0;
+    background: url('../Images/loader.svg') no-repeat #000 center center;
+    z-index: 1000;
+    opacity: 1;
+    transition: 500ms ease-in-out;
+}
+
 header {
     position: sticky;
     top: 0;
